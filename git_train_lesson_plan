@@ -1,0 +1,32 @@
+yann.yu@mllxv-yu:dev$ cd gittrain/
+yann.yu@mllxv-yu:gittrain$ git --version
+git version 2.7.4
+yann.yu@mllxv-yu:gittrain$ git init website
+Initialized empty Git repository in /home/yann.yu/dev/gittrain/website/.git/
+yann.yu@mllxv-yu:gittrain$ ls
+website
+yann.yu@mllxv-yu:gittrain$ cd website/
+yann.yu@mllxv-yu:website$ git branch
+yann.yu@mllxv-yu:website$ git br
+yann.yu@mllxv-yu:website$ touch index.html index.css
+yann.yu@mllxv-yu:website$ ll
+total 12
+drwxrwxr-x 3 yann.yu yann.yu 4096 Oct  5 09:56 ./
+drwxrwxr-x 3 yann.yu yann.yu 4096 Oct  5 09:56 ../
+drwxrwxr-x 7 yann.yu yann.yu 4096 Oct  5 09:56 .git/
+-rw-rw-r-- 1 yann.yu yann.yu    0 Oct  5 09:56 index.css
+-rw-rw-r-- 1 yann.yu yann.yu    0 Oct  5 09:56 index.html
+yann.yu@mllxv-yu:website$ git br
+yann.yu@mllxv-yu:website$ git add .
+yann.yu@mllxv-yu:website$ git st
+A  index.css
+A  index.html
+yann.yu@mllxv-yu:website$ git commit -m 'add home page'
+[master (root-commit) 50068e2] add home page
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 index.css
+ create mode 100644 index.html
+yann.yu@mllxv-yu:website$ git lg
+* 50068e2 - (HEAD -> master) add home page (6 seconds ago) <Yann Yu>
+yann.yu@mllxv-yu:website$ git br
+* master
