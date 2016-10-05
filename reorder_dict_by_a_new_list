@@ -1,0 +1,16 @@
+reorder dict by a new list:
+
+# how2convert_into_ordereddict_by_new_list.py
+from collections import OrderedDict
+
+sample_dict = {1:'r099', 2:'g444', 3:'t555', 4:'f444', 5:'h666'}
+keyorder = [5, 2, 4, 3, 1]
+
+result = OrderedDict(sorted(sample_dict.items(), key=lambda i:keyorder.index(i[0])))
+print(result)
+
+
+# more readable and maybe faster option:
+keyorder = {k:v for v,k in enumerate([5, 2, 4, 3, 1])}
+result = OrderedDict(sorted(sample_dict.items(), key=lambda i:keyorder.get(i[0])))
+print(result)
