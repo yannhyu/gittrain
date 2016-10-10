@@ -1,0 +1,40 @@
+CREATE OR REPLACE FUNCTION replace_e_to_a(input text)
+RETURNS text AS
+$BODY$
+    import re
+    output = re.sub('e', 'a', input)
+    return output
+$BODY$
+LANGUAGE plpythonu;
+
+
+++++++++++++++++++++++++++++++++++++++++++
+
+
+
+CREATE OR REPLACE FUNCTION replace_e_to_a(text)
+RETURNS text AS
+$BODY$
+    import re
+    Text1 = re.sub('e', 'a',args[0])
+    return Text1
+$BODY$
+LANGUAGE plpythonu;
+
+
+SELECT replace_e_to_a('Meee');
+
+++++++++++++++++++++++++++++++++++++++++++
+
+CREATE FUNCTION replace_e_to_a(text) RETURNS text AS
+'
+import re
+Text1 = re.sub(''e'', ''a'',args[0])
+return Text1
+'
+LANGUAGE 'plpython';
+ 
+SELECT replace_e_to_a('Meee');
+
+… should return ‘Maaa’.
+

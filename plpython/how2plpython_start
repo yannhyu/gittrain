@@ -1,0 +1,98 @@
+PL/Python
+
+
+  mydb=# CREATE EXTENSION plpythonu;
+  CREATE EXTENSION
+
+Then create and use functions written in Python:
+
+
+  mydb=# CREATE FUNCTION pymax (a integer, b integer)
+  mydb-#    RETURNS integer
+  mydb-# AS $$
+  mydb$#  if a > b:
+  mydb$#    return a
+  mydb$#  return b
+  mydb$# $$ LANGUAGE plpythonu;
+  CREATE FUNCTION
+  mydb=#
+  mydb=# SELECT pymax(1, 4);
+   pymax
+  -------
+       4
+  (1 row)
+
+
+CREATE FUNCTION pymax (a integer, b integer)
+   RETURNS integer
+AS $$
+ if a > b:
+   return a
+ return b
+$$ LANGUAGE plpythonu;
+
+SELECT pymax(11, 4);
+
+DROP FUNCTION pymax (a integer, b integer);
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+CREATE FUNCTION pymax (a numeric, b numeric)
+   RETURNS numeric
+AS $$
+ if a > b:
+   return a
+ return b
+$$ LANGUAGE plpythonu;
+
+SELECT pymax(1.4, 4.1);
+
+DROP FUNCTION pymax (a numeric, b numeric);
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+PL/pgSQL
+
+PL/pgSQL is included and enabled by default. Simply create functions and use:
+
+
+  mydb=# CREATE FUNCTION pgMax(a integer, b integer)
+  mydb-#   RETURNS integer
+  mydb-# as $$
+  mydb$# BEGIN
+  mydb$#   IF a > b THEN
+  mydb$#     RETURN a;
+  mydb$#   END IF;
+  mydb$#   RETURN b;
+  mydb$# END;
+  mydb$# $$ LANGUAGE plpgsql;
+  CREATE FUNCTION
+  mydb=#
+  mydb=# select pgMax(4, 8);
+   pgmax
+  -------
+       8
+  (1 row)
+
+  mydb=# DROP FUNCTION pgMax(integer, integer);
+  DROP FUNCTION
+  mydb=#
+
+++++++++++++++++++++++++++++++++++++++++++++++
+CREATE FUNCTION pgMax(a integer, b integer)
+  RETURNS integer
+as $$
+BEGIN
+  IF a > b THEN
+    RETURN a;
+  END IF;
+  RETURN b;
+END;
+$$ LANGUAGE plpgsql;
+
+select pgMax(4, 8);
+
+DROP FUNCTION pgMax(integer, integer);
+
++++++++++++++++++++++++++++++++++++++++++++++++
+

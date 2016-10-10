@@ -1,0 +1,35 @@
+CREATE OR REPLACE FUNCTION list_incoming_files (adirname text)
+    RETURNS SETOF text
+AS $$
+    import os
+    return os.listdir(adirname)
+$$ LANGUAGE plpythonu VOLATILE SECURITY DEFINER;
+
+
+SELECT filename
+FROM list_incoming_files('/tmp/incoming') As filename
+WHERE filename ILIKE '%.csv';
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+test_plpython-# FROM list_incoming_files('/tmp/incoming') As filename;
+ filename  
+-----------
+ hi02
+ low01.csv
+ low02.csv
+ hi03
+ hi01
+ hi
+(6 rows)
+
+test_plpython=# SELECT filename
+test_plpython-# FROM list_incoming_files('/tmp/incoming') As filename
+test_plpython-# WHERE filename ILIKE '%.csv';
+ filename  
+-----------
+ low01.csv
+ low02.csv
+(2 rows)
+
+test_plpython=# 

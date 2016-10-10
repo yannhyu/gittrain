@@ -1,0 +1,44 @@
+
+
+test_plpython=# SELECT json_update('{"a":1}', 'a', '{"innerkey":"innervalue"}');
+            json_update            
+-----------------------------------
+ {"a": {"innerkey": "innervalue"}}
+(1 row)
+
+test_plpython=# SELECT json_update('{"a":1}', 'a', '3');
+ json_update 
+-------------
+ {"a": 3}
+(1 row)
+
+
+
+
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+CREATE OR REPLACE FUNCTION json_update(data json, key text, value json)
+RETURNS json AS
+$BODY$
+   from json import loads, dumps
+   if key is None: return data
+   js = loads(data)
+   # you must decode 'value' with loads too:
+   js[key] = loads(value)
+   return dumps(js)
+$BODY$
+LANGUAGE plpythonu VOLATILE;
+
+postgres=# SELECT json_update('{"a":1}', 'a', '{"innerkey":"innervalue"}');
+            json_update            
+-----------------------------------
+ {"a": {"innerkey": "innervalue"}}
+(1 row)

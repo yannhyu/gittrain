@@ -1,0 +1,13 @@
+select name, default_version, installed_version 
+from pg_available_extensions 
+where name like 'plpy%';
+
+
+    name    | default_version | installed_version 
+------------+-----------------+-------------------
+ plpython2u | 1.0             | 
+ plpythonu  | 1.0             | 
+(2 rows)
+
+
+

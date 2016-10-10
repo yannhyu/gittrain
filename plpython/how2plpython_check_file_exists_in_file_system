@@ -1,0 +1,75 @@
+CREATE OR REPLACE FUNCTION fnfileexists (afilename text)
+    RETURNS boolean
+AS $$
+    import os
+    return os.path.exists(afilename)
+$$ LANGUAGE plpythonu;
+
+SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql.conf');
+
+test_plpython=# SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql.conf');
+ fnfileexists 
+--------------
+ t
+(1 row)
+
+test_plpython=# SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql02.conf');
+ fnfileexists 
+--------------
+ f
+(1 row)
+
++++++++++++++++++++++++++++++++
+
+
+
+
+CREATE OR REPLACE FUNCTION fnfileexists (afilename text)
+    RETURNS boolean
+AS $$
+    import os
+    return os.path.exists(afilename)
+$$ LANGUAGE plpythonu;
+
+SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql.conf');
+
+test_plpython=# SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql.conf');
+ fnfileexists 
+--------------
+ t
+(1 row)
+
+test_plpython=# SELECT fnfileexists('/etc/postgresql/9.5/main/postgresql02.conf');
+ fnfileexists 
+--------------
+ f
+(1 row)
+
++++++++++++++++++++++++++++++++
+
+
+
+CREATE OR REPLACE FUNCTION fnfileexists (IN afilename text)
+    RETURNS boolean
+AS $$
+    import os
+    return os.path.exists(afilename)
+$$ LANGUAGE plpythonu;
+
+--testing the function --
+SELECT fnfileexists(E'/home/yann.yu/hello_plpython')
+
+
++++++++++++++++++++++++++++++++
+Simple finding if a file exists
+
+CREATE OR REPLACE FUNCTION fnfileexists(IN afilename text) RETURNS boolean AS
+$$
+    import os
+    return os.path.exists(afilename)
+$$
+LANGUAGE 'plpythonu' VOLATILE;
+
+
+--testing the function --
+SELECT fnfileexists(E'C:\\test.htm')
