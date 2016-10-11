@@ -1,0 +1,71 @@
+pip install twisted
+pip install psycopg2
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+createdb mytestdb
+Now connect to the new test database.
+   psql mytestdb
+
+Create some test tables.
+
+CREATE TABLE table1 (
+        message text
+);
+CREATE TABLE table2 (
+        message text
+);
+
+
+
+Hook up our database with PL/pgSQL language.
+++++++++++++++++++++++++++++++++++++++++++
+CREATE PROCEDURAL LANGUAGE plpgsql;
+
+++++++++++++++++++++++++++++++++++++++++++
+
+Create a trigger function in PL/pgSQL.
+++++++++++++++++++++++++++++++++++++++++++
+CREATE FUNCTION notify_trigger() RETURNS trigger AS $$
+
+DECLARE
+
+BEGIN
+ -- TG_TABLE_NAME is the name of the table who's trigger called this function
+ -- TG_OP is the operation that triggered this function: INSERT, UPDATE or DELETE.
+ execute 'NOTIFY ' || TG_TABLE_NAME || '_' || TG_OP;
+ return new;
+END;
+
+$$ LANGUAGE plpgsql;
+
++++++++++++++++++++++++++++++++++++++++++++
+
+
+Create triggers on the test tables
+
+CREATE TRIGGER table1_trigger BEFORE insert or update or delete on table1 execute procedure notify_trigger();
+CREATE TRIGGER table2_trigger BEFORE insert or update or delete on table2 execute procedure notify_trigger();
+
+++++++++++++++++++++++++++++++++++++++++++++
+
+
+Testing It Out
+Run asyncnotify-example.py in another window. Each of the following SQL statements should cause the script to print a line of output.
+
+notify test1;
+notify test2;
+Well the second notify only works for fifteen seconds after you started asyncnotify-example.py because it gets removed by reactor.callLater.
+
+Now the magic you have all been waiting for. Execute these statements and watch the asyncnotify-example.py window:
+
+INSERT INTO table1 VALUES ('hello');
+UPDATE table1 SET message = 'hello, world';
+DELETE FROM table1;
+INSERT INTO table2 VALUES ('hello');
+UPDATE table2 SET message = 'hello, world';
+DELETE FROM table2;
+
+After you have had your fun execute this command
+
+notify quit;

@@ -1,0 +1,20 @@
+virtualenv -p c:\users\yann.yu\appdata\local\continuum\anaconda2\python.exe venvpy2
+
+
+C:\Users\yann.yu\Documents\tips\how2postgresql\how2listen_notify_unlisten>venvpy2\Scripts\activate
+
+(venvpy2) C:\Users\yann.yu\Documents\tips\how2postgresql\how2listen_notify_unlisten>python --version
+Python 2.7.12 :: Continuum Analytics, Inc.
+
+(venvpy2) C:\Users\yann.yu\Documents\tips\how2postgresql\how2listen_notify_unlisten>pip --version
+pip 8.1.2 from c:\users\yann.yu\documents\tips\how2postgresql\how2listen_notify_unlisten\venvpy2\lib\site-packages (python 2.7)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+virtualenv venvpy2 --no-site-packages
+
+pyvenv venvpy2 --no-site-packages
+
+virtualenv -p C:\Users\yann.yu\AppData\Local\Continuum\Anaconda2\python venvpy2
+
+virtualenv -p c:\users\yann.yu\appdata\local\continuum\anaconda2\python.exe venvpy2
+
